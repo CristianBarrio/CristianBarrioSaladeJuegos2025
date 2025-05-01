@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'tpsaladejuegos';
+  router = inject(UtilsService);
+
+  constructor() {
+    this.router.navegar('/login');
+  }
 }

@@ -1,22 +1,32 @@
-<img src="Foto CV.jpg" height="300">
-<h1>Cristian Nicolás Barrio</h1>
-<h2 [textContent]=`cristianbarrio115@gmail.com`></h2>
-<h2>24 años</h2>
-<h3>Juego elegido: Blackjack</h3>
+<div class="quiensoy">
+  <div *ngIf="user">
+    <img [src]="user.avatar_url" width="300" alt="Avatar" />
+    <h2>{{ user.name }}</h2>
+    <p><strong>Repos:</strong> {{ user.public_repos }}</p>
+    <p><strong>Followers:</strong> {{ user.followers }}</p>
+    <p><strong>Following:</strong> {{ user.following }}</p>
+    <a [href]="user.html_url" target="_blank">View Profile</a>
+  </div>
+  
+  <p *ngIf="error" style="color: red;">{{ error }}</p>
+  <h2>24 años</h2>
+  <h3>Juego elegido: Blackjack</h3>
 <h3>Cada jugador se enfrenta de forma individual a la banca, en busca de conseguir 21 puntos, o el número más cercano posible., sin pasarse. Para conseguirlos, cada jugador recibe dos cartas al inicio. 
-
-    Si las dos primeras cartas suman 21, es la mejor jugada posible, y recibe el nombre de Blackjack. Cuando los jugadores no llegan a 21, puede pedir cartas extra para llegar, pero si se pasa de los 21 automáticamente pierde.
+  
+  Si las dos primeras cartas suman 21, es la mejor jugada posible, y recibe el nombre de Blackjack. Cuando los jugadores no llegan a 21, puede pedir cartas extra para llegar, pero si se pasa de los 21 automáticamente pierde.
+  
+  La banca, que también es parte del juego, tiene sus propias reglas de la casa en blackjack. Recibe dos cartas, y  sus opciones son muy claras:
+  
+  Si tiene 16 o menos, está obligada a pedir otra carta. 
+  Si tiene 17 o más se tiene que plantar. 
+  La banca le gana a todos los jugadores que se pasen de 21, y a todos aquellos que tengan una mano de menor valor que la suya. Si tiene 19 puntos, por ejemplo, le gana a todos los que tengan 18 o menos y 22 o más.
+  
+  Pierde con los jugadores que tengan una mano superior, y con todos los que se hayan plantado en el caso de que exceda los 21 puntos. El empate en blackjack, se da entre la banca y los jugadores que tengan la misma cantidad de puntos.
+  
+  El valor de las cartas es el siguiente: 
+  
+  El As es la única que tiene dos valores, 1 y 11. El jugador que tiene el As puede elegir su valor según le convenga. 
+  Las cartas del 1 al 10 están valuadas de acuerdo a su numeración. 
+  La jota, la reina y el rey comparten el valor de 10 puntos. </h3>
+</div>
     
-    La banca, que también es parte del juego, tiene sus propias reglas de la casa en blackjack. Recibe dos cartas, y  sus opciones son muy claras:
-    
-    Si tiene 16 o menos, está obligada a pedir otra carta. 
-    Si tiene 17 o más se tiene que plantar. 
-    La banca le gana a todos los jugadores que se pasen de 21, y a todos aquellos que tengan una mano de menor valor que la suya. Si tiene 19 puntos, por ejemplo, le gana a todos los que tengan 18 o menos y 22 o más.
-    
-    Pierde con los jugadores que tengan una mano superior, y con todos los que se hayan plantado en el caso de que exceda los 21 puntos. El empate en blackjack, se da entre la banca y los jugadores que tengan la misma cantidad de puntos.
-        
-    El valor de las cartas es el siguiente: 
-    
-    El As es la única que tiene dos valores, 1 y 11. El jugador que tiene el As puede elegir su valor según le convenga. 
-    Las cartas del 1 al 10 están valuadas de acuerdo a su numeración. 
-    La jota, la reina y el rey comparten el valor de 10 puntos. </h3>
