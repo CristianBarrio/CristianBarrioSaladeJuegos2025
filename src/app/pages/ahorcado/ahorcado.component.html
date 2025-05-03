@@ -1,0 +1,25 @@
+   <div class="ahorcado">
+    <div class="juego">
+
+      <div class="imagenes">
+        <img [src]="imagen" class="imagen">
+      </div>
+  
+      <div class="juego2">
+        <h1 class="palabraOculta">
+          <span *ngFor="let letra of palabraOculta.split('')">{{ letra }} </span>
+        </h1>
+  
+        <div class="teclado">
+          <div *ngFor="let fila of botones" class="fila">
+            <button *ngFor="let letra of fila" (click)="presionarLetra(letra)" [disabled]="letrasPresionadas.includes(letra) || errores == 6">{{ letra }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div >
+      <button class="botonReinicio" (click)="reiniciarJuego()">REINICIAR</button>
+    </div>
+  </div>
+  

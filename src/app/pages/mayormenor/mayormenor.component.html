@@ -1,0 +1,33 @@
+<div class="mayormenor">
+    <div class="juego">
+
+      <div class="cartas">
+
+        <img [src]="cartaUno" [alt]="cartaUno">
+
+        <!-- <div class="card" [class.girar]="mostrarCartaDos">
+          <div class="card-inner">
+            <img class="card-front" src="oculta.png" alt="oculta">
+            <img class="card-back" [src]="cartaDos" [alt]="cartaDos">
+          </div>
+        </div> -->
+        <img *ngIf="!mostrarCartaDos" src="oculta.png" alt="oculta">
+
+        <img *ngIf="mostrarCartaDos" [src]="cartaDos" [alt]="cartaDos" class="girar">
+      </div>
+  
+      <div class="juego2">
+        <h1 class="esMayorOMenor">¿LA CARTA ES MAYOR O MENOR?</h1>
+  
+        <div class="botones">
+          <button (click)="jugar(false)">&lt;</button>
+          <button (click)="jugar(true)">&gt;</button>
+        </div>
+        
+        <div>
+          <button (click)="generarCartas()"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>

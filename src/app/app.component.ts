@@ -13,6 +13,6 @@ export class AppComponent {
   router = inject(UtilsService);
 
   constructor() {
-    this.router.navegar('/login');
+    this.router.navegar('/mayormenor');
   }
 }

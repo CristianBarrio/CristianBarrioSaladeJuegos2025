@@ -1,0 +1,151 @@
+/* .mayormenor {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cartas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 20px;
+  }
+
+  .cartas img {
+    width: 160px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    backface-visibility: hidden;
+  }
+  
+  @-webkit-keyframes flip-vertical-left{0%{-webkit-transform:rotateY(0);transform:rotateY(0)}100%{-webkit-transform:rotateY(-180deg);transform:rotateY(-180deg)}}@keyframes flip-vertical-left{0%{-webkit-transform:rotateY(0);transform:rotateY(0)}100%{-webkit-transform:rotateY(-180deg);transform:rotateY(-180deg)}}
+  .girar {
+    -webkit-animation:flip-vertical-left .5s cubic-bezier(.455,.03,.515,.955) both;animation:flip-vertical-left .5s cubic-bezier(.455,.03,.515,.955) both;
+    
+  }
+  
+  .juego2 {
+    text-align: center;
+  }
+  
+  .esMayorOMenor {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .botones {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .botones button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .botones button:hover {
+    background-color: #2980b9;
+  } */
+  
+/* animation: flip-in-hor-top 0.8s ease-out both; */
+
+
+.mayormenor {
+  text-align: center;
+  padding: 20px;
+}
+
+.juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cartas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 160px;
+  height: 220px;
+  perspective: 1000px;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+}
+
+.card-front {
+  background-color: #fff;
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+.juego2 {
+  text-align: center;
+}
+
+.esMayorOMenor {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.botones {
+  display: flex;
+  gap: 20px;
+}
+
+.botones button {
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.botones button:hover {
+  background-color: #2980b9;
+}
+
