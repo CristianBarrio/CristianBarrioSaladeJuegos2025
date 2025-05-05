@@ -19,7 +19,6 @@ export class MayormenorComponent {
   cartaDos = '';
 
   mostrarCartaDos = false;
-  nuevaRonda = false;
 
   constructor() {
     this.generarCartas();
@@ -41,7 +40,6 @@ export class MayormenorComponent {
     this.cartaDos = `${this.numeroCartaDos}de${this.paloCartaDos}.png`;
     
     this.mostrarCartaDos = false;
-    this.nuevaRonda = true;
   }
 
   esMayorOMenor():boolean{

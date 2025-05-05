@@ -3,12 +3,15 @@ import { AuthService } from '../../services/auth.service';
 import { UtilsService } from '../../services/utils.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+//import { LoginComponent } from '../login/login.component';
 
 
 @Component({
   selector: 'app-registro',
   imports: [CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
@@ -16,25 +19,28 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class RegistroComponent {
   auth = inject(AuthService);
   utilsSvc = inject(UtilsService);
+  //loginComponent = inject(LoginComponent);
 
   form = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
-    password: new FormControl('',[Validators.required]),
+    password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
     nombre: new FormControl('',[Validators.required]),
     apellido: new FormControl('',[Validators.required]),
-    age: new FormControl('',[Validators.required])
+    edad: new FormControl(0,[Validators.required, Validators.min(10), Validators.max(100)])
   })
 
-  // async login() {
-  //   if (this.form.valid) {
-  //     try {
-  //       await this.auth.crearCuenta(this.form.value.email ?? '', this.form.value.password ?? '');
-  //       console.log('Inicio de sesión exitoso');
-  //       this.utilsSvc.navegar('/');
-  //     } catch (error) {
-  //       console.error('Error al iniciar sesión:', error);
-  //       this.utilsSvc.mostrarMensaje('error', 'Error', 'Correo o contraseña incorrectos', 3000);
-  //     }
-  //   }
-  // }
+  async registrarse(){
+    if(this.form.valid){
+      try{
+        await this.auth.crearCuenta(this.form.value.email ?? '', this.form.value.password ?? '', this.form.value.nombre ?? '', this.form.value.apellido ?? '', this.form.value.edad ?? 0);
+        console.log('Registro exitoso');
+        this.utilsSvc.navegar('/');
+        //this.loginComponent.login();
+        this.form.reset();
+      } catch(error){
+        console.error('Error al registrarse:', error);
+      }
+    }
+  }
+
 }

@@ -13,27 +13,25 @@ export class AuthService {
   utilsSvc = inject(UtilsService);
   router = inject(Router);
 
-  usuarioActual:User | null = null;
-  tablaUsuarios;
+  //usuarioActual:User | null = null;
+  usuarioActual: Usuario | null = null;
 
-  alCerrarSesion: EventEmitter<void> = new EventEmitter<void>();
+  //alCerrarSesion: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { 
     this.sb.supabase.auth.onAuthStateChange((event, session) =>{
-      console.log(event, session);
+      //console.log("Event: "+event, "session: "+session);
 
-      if(session === null){
-        this.usuarioActual = null;
-        //this.utilsSvc.navegar('/login');
-        //this.router.navigateByUrl('/login');
-      }else{
-        this.usuarioActual = session.user;
-        //this.router.navigateByUrl('/');
-        //this.utilsSvc.navegar('/');
-      }
+      this.manejarCambioDeSesion(session);
+      
+      // if(session === null){
+      //   this.usuarioActual = null;
+      // }else{
+      //   //this.usuarioActual = session.user;
+      // }
     });
 
-    this.tablaUsuarios = this.sb.supabase.from("usuarios");
+    //this.tablaUsuarios = this.sb.supabase.from("usuarios");
   }
 
   async iniciarSesion(correo: string, contraseña: string) {
@@ -42,11 +40,76 @@ export class AuthService {
       password: contraseña
     });
   
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+    const { data: infoUsuario, error: errorUsuario } = await this.sb.supabase.from("usuarios").select('*').eq('email', correo).single();
+
+    if (errorUsuario) {
+      throw errorUsuario;
+    }
+
+    this.usuarioActual = infoUsuario;
+
+    return data;
+  }
+
+  async manejarCambioDeSesion(session: any) {
+    if (session === null) {
+      this.usuarioActual = null;
+    } else {
+      const correo = session.user.email;
+      const { data: infoUsuario, error } = await this.sb.supabase.from("usuarios").select('*').eq('email', correo).single();
+  
+      if (!error) {
+        this.usuarioActual = infoUsuario;
+      } else {
+        console.log('Error al obtener usuario: ', error);
+      }
+    }
+  }
+  
+  // async recuperarUsuarioActual() {
+  //   const {
+  //     data: { session },
+  //   } = await this.sb.supabase.auth.getSession(); 
+  
+  //   if (session) {
+  //     const correo = session.user.email;
+  //     const { data: usuario, error } = await this.sb.supabase
+  //       .from("usuarios")
+  //       .select("*")
+  //       .eq("email", correo)
+  //       .single();
+  
+  //     if (!error) {
+  //       this.usuarioActual = usuario;
+  //     }
+  //   }
+  // }
+  
+  async recuperarUsuarioActual(): Promise<Usuario | null> {
+    const {
+      data: { session },
+    } = await this.sb.supabase.auth.getSession();
+  
+    if (session) {
+      const correo = session.user.email;
+      const { data: usuario, error } = await this.sb.supabase
+        .from("usuarios")
+        .select("*")
+        .eq("email", correo)
+        .single();
+  
+      if (!error) {
+        this.usuarioActual = usuario;
+        return usuario;
+      }
     }
   
-    return data;
+    this.usuarioActual = null;
+    return null;
   }
   
 
@@ -59,17 +122,15 @@ export class AuthService {
      if (error) {
       throw error;
     }
-  
-    return data;
-  }
 
-  async generarUsuario(usuario: Usuario){
-    const {data, error, count, status, statusText} = await this.tablaUsuarios.insert(usuario);
-    console.log(data, error, count, status, statusText);
+    //await this.sb.generarUsuario(correo, nombre, apellido, edad); 
+
+    return await this.sb.generarUsuario(correo, nombre, apellido, edad); 
+    // return data;
   }
 
   async cerrarSesion(){
     const { error } = await this.sb.supabase.auth.signOut();
-    this.alCerrarSesion.emit();
+    //this.alCerrarSesion.emit();
   }
 }

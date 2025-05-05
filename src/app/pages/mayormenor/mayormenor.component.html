@@ -5,15 +5,16 @@
 
         <img [src]="cartaUno" [alt]="cartaUno">
 
-        <!-- <div class="card" [class.girar]="mostrarCartaDos">
-          <div class="card-inner">
-            <img class="card-front" src="oculta.png" alt="oculta">
-            <img class="card-back" [src]="cartaDos" [alt]="cartaDos">
+        <img *ngIf="!mostrarCartaDos" src="oculta.png" [alt]="cartaDos">
+        <img *ngIf="mostrarCartaDos" [src]="cartaDos" [alt]="cartaDos" class="girar">
+
+        <!-- <div class="flip-card" [class.girar]="mostrarCartaDos">
+          <div class="flip-card-inner">
+            <img class="flip-card-front" src="oculta.png" alt="oculta" />
+            <img class="flip-card-back" [src]="cartaDos" [alt]="cartaDos" />
           </div>
         </div> -->
-        <img *ngIf="!mostrarCartaDos" src="oculta.png" alt="oculta">
-
-        <img *ngIf="mostrarCartaDos" [src]="cartaDos" [alt]="cartaDos" class="girar">
+        
       </div>
   
       <div class="juego2">
@@ -25,7 +26,7 @@
         </div>
         
         <div>
-          <button (click)="generarCartas()"></button>
+          <button (click)="generarCartas()">JUGAR DE NUEVO</button>
         </div>
 
       </div>
