@@ -1,3 +1,7 @@
+# Aclaraciones 
+
+La app funciona pero está bastante fea, le faltan notificaciones de errores y de victorias en los juegos, el chat no se actualiza sin recargar la página y le falta bastante decorado.
+
 # Tpsaladejuegos
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
