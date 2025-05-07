@@ -1,6 +1,6 @@
 # Aclaraciones 
 
-La app funciona pero está bastante fea, le faltan notificaciones de errores y de victorias en los juegos, el chat no se actualiza sin recargar la página y le falta bastante decorado.
+La app funciona pero está bastante fea, le faltan notificaciones de errores y de victorias en los juegos, el chat no se actualiza sin recargar la página y le falta bastante decorado. El cierre de sesión no está funcionando como debería.
 
 # Tpsaladejuegos
 
