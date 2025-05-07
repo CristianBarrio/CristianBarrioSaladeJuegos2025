@@ -1,24 +1,30 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
-import { UtilsService } from './services/utils.service';
 import { AuthService } from './services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'tpsaladejuegos';
-  router = inject(UtilsService);
   auth = inject(AuthService)
+  router = inject(Router);
 
-  constructor() {
-    this.router.navegar('/login');
+  mostrarNombre = false;
+  nombreUsuario: string | undefined = "";
+
+  async ngOnInit() {
+    const usuario = this.auth.getUsuarioActual();
+
+    if (usuario) {
+      this.mostrarNombre = true;
+    } else {
+      this.mostrarNombre = false;
+    }
   }
 
-  async ngOnInit(){
-    await this.auth.recuperarUsuarioActual();
-  }
 }

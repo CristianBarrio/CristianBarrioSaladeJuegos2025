@@ -26,6 +26,11 @@
         </div>
         
         <div>
+          <h2 style="color:#00ff00" *ngIf="resultado === true">¡Ganaste!</h2>
+          <h2 style="color:red" *ngIf="resultado === false">¡Perdiste!</h2>
+        </div>
+
+        <div>
           <button (click)="generarCartas()">JUGAR DE NUEVO</button>
         </div>
 

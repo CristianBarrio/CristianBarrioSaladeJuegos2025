@@ -35,7 +35,8 @@ export class LoginComponent {
       try {
         await this.auth.iniciarSesion(this.form.value.email ?? '', this.form.value.password ?? '');
         console.log('Inicio de sesión exitoso.' + this.auth.usuarioActual?.nombre);
-        this.utilsSvc.navegar('/chat');
+
+        this.utilsSvc.navegar('/');
         this.form.reset();
       } catch (error) {
         console.error('Error al iniciar sesión:', error);

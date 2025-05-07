@@ -331,5 +331,18 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<nav class="navbar">
+  <a href="">Inicio</a>
+  <a href="login">Iniciar Sesión</a>
+  <a href="registro">Crear Cuenta</a>
+  <a href="juegos">Juegos</a>
+  <a href="chat">Sala de Chat</a>
+  <a href="quiensoy">Quién Soy</a>
+
+  <label *ngIf="mostrarNombre">{{ this.nombreUsuario }}</label>
+  <button [disabled]="!mostrarNombre" (click)="this.auth.cerrarSesion()">
+    <img src="logout.png" alt="cerrar sesión"/>
+  </button>
+</nav>
 
 <router-outlet />

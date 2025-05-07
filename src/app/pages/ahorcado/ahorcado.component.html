@@ -15,6 +15,10 @@
             <button *ngFor="let letra of fila" (click)="presionarLetra(letra)" [disabled]="letrasPresionadas.includes(letra) || errores == 6">{{ letra }}</button>
           </div>
         </div>
+
+        <div>
+          <h2>Errores: {{ errores + "/6" }}</h2>
+        </div>
       </div>
     </div>
   

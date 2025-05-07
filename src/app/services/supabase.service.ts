@@ -17,15 +17,14 @@ export class SupabaseService {
 
   async traerMensajes() {
     const { data, error } = await this.supabase.from("mensajes").select("id, mensaje, created_at, usuarios (id, nombre, email)");
-    //console.log(data, error);
 
     if (error) {
       console.log('Error al traer mensajes:', error);
       return [];
     }
   
-    return data ?? [];
-    //return data as any[];
+    //return data ?? [];
+    return data as any[];
   }
 
   async generarUsuario(correo: string, nombre: string, apellido: string, edad: number) {
@@ -47,7 +46,7 @@ export class SupabaseService {
     return data;
   }
 
-  async guardarMensaje(mensaje: string, id_usuario: number) {
+  async guardarMensaje(mensaje: string, id_usuario: any) {
     const {data} = await this.supabase.from("mensajes").insert({
       mensaje: mensaje, id_usuario: id_usuario
     })

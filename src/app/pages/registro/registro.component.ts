@@ -4,6 +4,7 @@ import { UtilsService } from '../../services/utils.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 //import { LoginComponent } from '../login/login.component';
 
 
@@ -18,8 +19,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class RegistroComponent {
   auth = inject(AuthService);
-  utilsSvc = inject(UtilsService);
-  //loginComponent = inject(LoginComponent);
+  router = inject(Router);
 
   form = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -34,7 +34,7 @@ export class RegistroComponent {
       try{
         await this.auth.crearCuenta(this.form.value.email ?? '', this.form.value.password ?? '', this.form.value.nombre ?? '', this.form.value.apellido ?? '', this.form.value.edad ?? 0);
         console.log('Registro exitoso');
-        this.utilsSvc.navegar('/');
+        this.router.navigateByUrl('');
         //this.loginComponent.login();
         this.form.reset();
       } catch(error){

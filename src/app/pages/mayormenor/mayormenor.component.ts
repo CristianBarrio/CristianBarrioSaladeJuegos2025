@@ -19,6 +19,7 @@ export class MayormenorComponent {
   cartaDos = '';
 
   mostrarCartaDos = false;
+  resultado: boolean | null = null;
 
   constructor() {
     this.generarCartas();
@@ -40,6 +41,7 @@ export class MayormenorComponent {
     this.cartaDos = `${this.numeroCartaDos}de${this.paloCartaDos}.png`;
     
     this.mostrarCartaDos = false;
+    this.resultado = null;
   }
 
   esMayorOMenor():boolean{
@@ -54,9 +56,9 @@ export class MayormenorComponent {
     
     this.mostrarCartaDos = true;
 
-    let resultado = this.esMayorOMenor();
+    this.resultado = this.esMayorOMenor();
 
-    if(esMayor === resultado){
+    if(esMayor === this.resultado){
       console.log('Ganaste!');
     }else{
       console.log('perdiste!');

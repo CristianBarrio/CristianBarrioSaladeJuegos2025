@@ -30,7 +30,7 @@
 							<div class="text w-100">
 								<h2>Creá tu cuenta</h2>
 								<p>¿No tenés cuenta?</p>
-								<a href="#" class="btn btn-white btn-outline-white">Registrarse</a>
+								<a href="registro" class="btn btn-white btn-outline-white">Registrarse</a>
 							</div>
 			      </div>
 						<div class="login-wrap p-4 p-lg-5">
@@ -69,7 +69,7 @@
 		            	<!-- <button type="submit" class="form-control btn btn-primary submit px-3">Ingresar</button> -->
 						<button type="submit" class="form-control btn btn-primary submit px-3" [disabled]="form.invalid" (click)="login()">Ingresar</button>
 
-						<div>
+						<div class="user-button-group">
 							<button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[0])">ADMIN</button>
 							<button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[1])">INVITADO</button>
 							<button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[2])">USUARIO</button>
