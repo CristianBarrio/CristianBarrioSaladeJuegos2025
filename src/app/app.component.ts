@@ -11,16 +11,16 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'tpsaladejuegos';
-  auth = inject(AuthService)
+  auth = inject(AuthService);
   router = inject(Router);
 
   mostrarNombre = false;
-  nombreUsuario: string | undefined = "";
+  nombreUsuario: string | undefined = '';
 
   async ngOnInit() {
-    const usuario = this.auth.getUsuarioActual();
+    this.nombreUsuario = this.auth.getUsuarioActual()?.nombre;
 
-    if (usuario) {
+    if (this.nombreUsuario != '') {
       this.mostrarNombre = true;
     } else {
       this.mostrarNombre = false;

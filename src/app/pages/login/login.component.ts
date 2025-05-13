@@ -2,9 +2,9 @@ import { inject, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UtilsService } from '../../services/utils.service';
 import { ToastModule } from 'primeng/toast';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   auth = inject(AuthService);
-  utilsSvc = inject(UtilsService);
+  router = inject(Router);
 
   form = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -36,11 +36,11 @@ export class LoginComponent {
         await this.auth.iniciarSesion(this.form.value.email ?? '', this.form.value.password ?? '');
         console.log('Inicio de sesión exitoso.' + this.auth.usuarioActual?.nombre);
 
-        this.utilsSvc.navegar('/');
+        this.router.navigateByUrl('');
         this.form.reset();
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
-        this.utilsSvc.mostrarMensaje('error', 'Error', 'Correo o contraseña incorrectos', 3000);
+        this.mostrarMensaje();
       }
     }
   }
@@ -60,10 +60,16 @@ export class LoginComponent {
     });
   }
 
-  // obtenerUsuario(correo:string):string{
-  //   const user = this.usuariosRegistrados.find(u => u.correo === correo);
-  //   return user ? user.correo.split('@')[0] : 'unknown';
-  // }
+  mostrarMensaje(){
+    Swal.fire({
+      position: "top-end",
+      icon: "error",
+      title: "Error",
+      text: "¡Correo o contraseña incorrectos!",
+      timer: 2000,
+      showConfirmButton: false
+    });
+  }
 
   cerrarSesion(){
     this.auth.cerrarSesion();

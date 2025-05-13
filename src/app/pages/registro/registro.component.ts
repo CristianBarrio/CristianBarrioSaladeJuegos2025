@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { UtilsService } from '../../services/utils.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
@@ -34,8 +33,8 @@ export class RegistroComponent {
       try{
         await this.auth.crearCuenta(this.form.value.email ?? '', this.form.value.password ?? '', this.form.value.nombre ?? '', this.form.value.apellido ?? '', this.form.value.edad ?? 0);
         console.log('Registro exitoso');
+        this.auth.iniciarSesion(this.form.value.email ?? '', this.form.value.password ?? '');
         this.router.navigateByUrl('');
-        //this.loginComponent.login();
         this.form.reset();
       } catch(error){
         console.error('Error al registrarse:', error);

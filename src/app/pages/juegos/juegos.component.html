@@ -1,6 +1,23 @@
-<button (click)="this.router.navigateByUrl('juegos/ahorcado')">Ahorcado</button>
-<button (click)="this.router.navigateByUrl('juegos/mayormenor')">Mayor O Menor</button>
-<button (click)="this.router.navigateByUrl('juegos/preguntados')" disabled>Preguntados</button>
+<div class="juegos">
+    <button (click)="this.router.navigateByUrl('juegos/ahorcado')" style="margin-right: 250px;">
+        <img src="ahorcado.png">
+        Ahorcado
+    </button>
+    <button (click)="this.router.navigateByUrl('juegos/mayormenor')" style="margin-right: 250px;">
+        <img src="mayormenor.png">
+        Mayor O Menor
+    </button>
+    <button (click)="this.router.navigateByUrl('juegos/preguntados')" style="margin-right: 250px;">
+        <img src="preguntados.png">
+        Preguntados
+    </button>
+    <button (click)="this.router.navigateByUrl('juegos/blackjack')">
+        <img src="blackjack.png">
+        Blackjack
+    </button>
+</div>
 
-<router-outlet/>
+<div class="children">
+    <router-outlet/>
+</div>
 

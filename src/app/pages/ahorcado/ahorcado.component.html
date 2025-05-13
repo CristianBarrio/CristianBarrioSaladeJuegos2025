@@ -12,17 +12,28 @@
   
         <div class="teclado">
           <div *ngFor="let fila of botones" class="fila">
-            <button *ngFor="let letra of fila" (click)="presionarLetra(letra)" [disabled]="letrasPresionadas.includes(letra) || errores == 6">{{ letra }}</button>
+            <button *ngFor="let letra of fila" (click)="presionarLetra(letra)" [disabled]="letrasPresionadas.includes(letra) || errores == 6 || juegoTerminado || tiempoRestante === 0">
+              {{ letra }}
+            </button>
           </div>
         </div>
 
         <div>
-          <h2>Errores: {{ errores + "/6" }}</h2>
+            <h2 *ngIf="tiempoRestante > 0">Tiempo Restante: {{ tiempoRestante }}</h2>
+            <h2 *ngIf="tiempoRestante === 0" style="color:red;">¡Se acabó el tiempo!</h2>
         </div>
+
+        <div>
+          <h2 *ngIf="errores === 6" style="color:red;">Errores: {{ errores + "/6" }}</h2>
+          <h2 *ngIf="errores < 6">Errores: {{ errores + "/6" }}</h2>
+          <h2 *ngIf="juegoTerminado && errores < 6" style="color:green;">¡Ganaste!</h2>
+          <h2 *ngIf="errores === 6" style="color:red;">¡Perdiste!</h2>
+        </div>
+        
       </div>
     </div>
   
-    <div >
+    <div>
       <button class="botonReinicio" (click)="reiniciarJuego()">REINICIAR</button>
     </div>
   </div>

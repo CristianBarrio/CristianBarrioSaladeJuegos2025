@@ -10,7 +10,4 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   router = inject(Router);
 
-  navegar(url:string) { 
-    this.router.navigateByUrl(`/${url}`);
-  }
 }

@@ -103,28 +103,6 @@ export class AuthService {
       }
     }
   }
-  
-  // async recuperarUsuarioActual(): Promise<Usuario | null> {
-  //   const {
-  //     data: { session },
-  //   } = await this.sb.supabase.auth.getSession();
-
-  //   if (session) {
-  //     const correo = session.user.email;
-  //     const { data: usuario, error } = await this.sb.supabase
-  //       .from("usuarios")
-  //       .select("*")
-  //       .eq("email", correo)
-  //       .single();
-
-  //     if (!error) {
-  //       this.usuarioActualSubject.next(usuario);
-  //       return usuario;
-  //     }
-  //   }
-  //   return null;
-  // }
-  
 
   async crearCuenta(correo: string, contraseña: string, nombre: string, apellido: string, edad: number) {
     const { data, error } = await this.sb.supabase.auth.signUp({
@@ -136,16 +114,13 @@ export class AuthService {
       throw error;
     }
 
-    //await this.sb.generarUsuario(correo, nombre, apellido, edad); 
-
     return await this.sb.generarUsuario(correo, nombre, apellido, edad); 
-    // return data;
   }
 
   async cerrarSesion(){
     const { error } = await this.sb.supabase.auth.signOut();
     this.usuarioActual = null;
     localStorage.removeItem('usuarioActual');
-    //this.alCerrarSesion.emit();
+    this.router.navigateByUrl('login');
   }
 }

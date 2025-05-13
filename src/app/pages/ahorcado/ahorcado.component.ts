@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SupabaseService } from '../../services/supabase.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -7,27 +9,27 @@ import { Component } from '@angular/core';
   templateUrl: './ahorcado.component.html',
   styleUrl: './ahorcado.component.css'
 })
-export class AhorcadoComponent {
-  // "assets": [
-   //   {
-   //     "glob": "**/*",
-   //     "input": "public"
-   //   }
+export class AhorcadoComponent {  
+  supabase = inject(SupabaseService);
+  auth = inject(AuthService);
 
-  
   botones = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ'],
     ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
   ];
 
   letrasPresionadas: string[] = [];
 
-  listaDePalabras = ["perro", "gato", "elefante", "jirafa", "tigre", "león", "ratón", "murciélago", "cocodrilo", "hipopótamo"];
+  listaDePalabras = ["perro", "gato", "elefante", "jirafa", "tigre", "leon", "raton", "murcielago", "cocodrilo", "hipopotamo"];
   palabraSeleccionada: string = "";
   palabraOculta: string = "";
   errores: number = 0;
   imagen:string = "";
+  juegoTerminado:boolean = false;
+
+  tiempoRestante:number = 0;
+  intervalo:any;
 
   constructor(){
     this.obtenerPalabra();
@@ -38,8 +40,11 @@ export class AhorcadoComponent {
     this.palabraSeleccionada = this.listaDePalabras[Math.floor(Math.random() * this.listaDePalabras.length)].toUpperCase();
     this.palabraOculta = this.palabraSeleccionada.replace(/./g, "_");
     this.errores = 0;
+    this.juegoTerminado = false;
     this.imagen = 'horca.png';
+    this.iniciarTemporizador();
   }
+
   presionarLetra(letra:string){
       this.letrasPresionadas.push(letra);
       
@@ -53,16 +58,36 @@ export class AhorcadoComponent {
         this.palabraOculta = palabraOcultaArray.join("");
 
         if(this.palabraOculta === this.palabraSeleccionada){
-
+          this.juegoTerminado = true;
+          if(this.intervalo){
+            clearInterval(this.intervalo);
+          }
+          this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'aciertos', 1);
         }
       }else{
         this.errores++;
         this.actualizarImagen();
     
         if (this.errores === 6) {
+          if(this.intervalo){
+            clearInterval(this.intervalo);
+          }
           this.palabraOculta = this.palabraSeleccionada;
+          this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'errores', 1);
         }
     }
+  }
+
+    iniciarTemporizador() {
+    this.tiempoRestante = 20;
+    this.intervalo = setInterval(() => {
+      this.tiempoRestante--;
+
+      if (this.tiempoRestante === 0) {
+        clearInterval(this.intervalo);
+        this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'tiempoCero', 1);
+      }
+    }, 1000);
   }
 
   actualizarImagen() {
@@ -79,7 +104,12 @@ export class AhorcadoComponent {
   }
 
   reiniciarJuego(){
+    if(this.intervalo){
+      clearInterval(this.intervalo);
+    }
+    this.tiempoRestante = 20;
     this.letrasPresionadas = [];
+    this.juegoTerminado = false;
     this.obtenerPalabra();
   }
 }

@@ -1,0 +1,23 @@
+button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+img {
+  width: 60px;
+  height: auto;
+}
+
+.juegos {
+  display: flex;
+  height: 100%;
+}
+
+.children {
+  flex: 1;
+  padding: 10px;
+}

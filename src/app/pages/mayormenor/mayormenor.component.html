@@ -1,5 +1,8 @@
 <div class="mayormenor">
-    <div class="juego">
+
+  <button class="mostrarValores" (click)="mostrarValores()">VALORES DE LAS CARTAS</button>
+
+  <div class="juego">
 
       <div class="cartas">
 
@@ -8,29 +11,17 @@
         <img *ngIf="!mostrarCartaDos" src="oculta.png" [alt]="cartaDos">
         <img *ngIf="mostrarCartaDos" [src]="cartaDos" [alt]="cartaDos" class="girar">
 
-        <!-- <div class="flip-card" [class.girar]="mostrarCartaDos">
-          <div class="flip-card-inner">
-            <img class="flip-card-front" src="oculta.png" alt="oculta" />
-            <img class="flip-card-back" [src]="cartaDos" [alt]="cartaDos" />
-          </div>
-        </div> -->
-        
       </div>
   
       <div class="juego2">
-        <h1 class="esMayorOMenor">¿LA CARTA ES MAYOR O MENOR?</h1>
+        <h1 class="esMayorOMenor">¿LA SEGUNDA CARTA VA A SER MAYOR O MENOR?</h1>
   
         <div class="botones">
           <button (click)="jugar(false)">&lt;</button>
           <button (click)="jugar(true)">&gt;</button>
         </div>
-        
-        <div>
-          <h2 style="color:#00ff00" *ngIf="resultado === true">¡Ganaste!</h2>
-          <h2 style="color:red" *ngIf="resultado === false">¡Perdiste!</h2>
-        </div>
 
-        <div>
+        <div class="botones">
           <button (click)="generarCartas()">JUGAR DE NUEVO</button>
         </div>
 

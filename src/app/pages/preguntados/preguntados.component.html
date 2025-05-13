@@ -1,1 +1,31 @@
-<p>preguntados works!</p>
+<div class="preguntados">
+
+    <div class="pregunta" *ngIf="pregunta">
+        <h1>{{ pregunta.question?.text }}</h1>
+
+        <div class="respuestas">
+                <ul>
+                <li *ngFor="let opcion of respuestas">
+                    <button (click)="seleccionarRespuesta(opcion)" [disabled]="respondio" [ngClass]="tipoRespuesta(opcion)">
+                        {{ opcion }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tiempo">
+            <h2 *ngIf="tiempoRestante > 0">Tiempo Restante: {{ tiempoRestante }}</h2>
+            <h2 *ngIf="tiempoRestante === 0" style="color:red;">¡Se acabó el tiempo!</h2>
+        </div>
+
+        <div *ngIf="respondio">
+            <h2 *ngIf="esCorrecta" style="color:green">¡Respuesta Correcta!</h2>
+            <h2 *ngIf="!esCorrecta && tiempoRestante > 0" style="color:red">¡Respuesta Incorrecta!</h2>
+            <h2 *ngIf="tiempoRestante == 0" style="color:red">¡Se acabó el tiempo!</h2>
+        </div>   
+        
+        <div class="reiniciar">
+            <button (click)="reiniciar()">Jugar de nuevo</button>
+        </div>
+</div>
+

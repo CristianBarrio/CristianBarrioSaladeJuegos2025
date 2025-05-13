@@ -17,6 +17,8 @@ export class ChatComponent {
   mensajes = signal<any>([]);
   mensaje = "";
 
+  usuarioActual = this.auth.getUsuarioActual();
+
   constructor() {
     this.supabaseService.traerMensajes().then((data) => {
       this.mensajes.set([...data]);
@@ -46,8 +48,8 @@ export class ChatComponent {
     }
 
    enviar(){
-    const idUsuario = this.auth.getUsuarioActual()?.id;
-    this.supabaseService.guardarMensaje(this.mensaje, idUsuario);
+    //const idUsuario = this.auth.getUsuarioActual()?.id;
+    this.supabaseService.guardarMensaje(this.mensaje, this.usuarioActual?.id);
 
     this.mensaje = "";
   }

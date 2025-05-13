@@ -1,0 +1,33 @@
+ <div class="blackjack">
+
+  <button class="mostrarReglas" (click)="mostrarReglas()">REGLAS</button>
+
+    <div class="juego">
+      <div class="cartas">
+        <img
+          *ngFor="let carta of cartasDealer; let i = index"
+          [src]="!jugadorEstaPlantado && i === 1 ? 'oculta2.png' : carta"
+          [alt]="!jugadorEstaPlantado && i === 1 ? 'carta oculta' : carta"
+          [class.oculta]="!jugadorEstaPlantado && i === 1">
+      </div>
+  
+      <p *ngIf="jugadorEstaPlantado">Puntaje de la banca: {{ sumaCartasDealer }}</p>
+  
+      <div class="cartas">
+        <img *ngFor="let carta of cartasJugador" [src]="carta" [alt]="carta">
+      </div>
+  
+      <p>Puntaje del jugador: {{ sumaCartasJugador }}</p>
+  
+      <div class="juego2">
+        <div class="botones">
+          <button [disabled]="jugadorEstaPlantado || juegoTerminado" (click)="pedirCarta()">PEDIR CARTA</button>
+          <!-- <button [disabled]="(sumaCartasJugador < 17 || juegoTerminado) || jugadorEstaPlantado" (click)="plantarse()">PLANTARSE</button> -->
+           <button [disabled]="jugadorEstaPlantado" (click)="plantarse()">PLANTARSE</button>
+          <button (click)="iniciarJuego()">JUGAR DE NUEVO</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

@@ -8,6 +8,13 @@ export class SupabaseService {
   supabase: SupabaseClient<any, "public", any>;
   usuario: null | any = {};
 
+  juegos: { [juego: string]: string[] } = {
+  Ahorcado: ['aciertos', 'tiempoCero', 'errores'],
+  MayorMenor: ['aciertos', 'errores'],
+  Preguntados: ['aciertos', 'tiempoCero', 'errores'],
+  Blackjack: ['victorias', 'empates', 'derrotas']
+  };
+
   constructor() { 
     this.supabase = createClient(
       "https://rkbqoxoodmpgkbvnaitz.supabase.co",
@@ -23,7 +30,6 @@ export class SupabaseService {
       return [];
     }
   
-    //return data ?? [];
     return data as any[];
   }
 
@@ -51,4 +57,42 @@ export class SupabaseService {
       mensaje: mensaje, id_usuario: id_usuario
     })
   }
+  
+  async traerResultados(juego:string){
+    let datos = this.juegos[juego];
+
+    const { data, error } = await this.supabase.from(`resultados${juego}`).select(`id, ${datos}, usuarios (id, nombre, email)`);
+
+    if(error){
+      console.log("Error al traer resultados: ", error);
+    }
+
+    return data as any[];
+  }
+
+  async guardarResultado(juego:string, id_usuario:number | undefined, campo:string, incremento:number){
+    const { data: fila, error } = await this.supabase.from(`resultados${juego}`).select('id_usuario, '+ campo).eq('id_usuario', id_usuario).maybeSingle();
+
+    if (fila) {
+      const filaExiste = fila as Record<string, any>;
+      const valorActual = filaExiste[campo] ?? 0;
+
+      const { error: actualizacionError } = await this.supabase.from(`resultados${juego}`).update({ [campo]: valorActual + incremento }).eq('id_usuario', id_usuario);
+
+      if (actualizacionError) {
+        console.error("Error al actualizar resultado:", actualizacionError);
+      }
+
+    } else {
+      const insertData: any = { id_usuario };
+      this.juegos[juego].forEach(j => insertData[j] = (j === campo ? incremento : 0));
+
+      const { error: insertError } = await this.supabase.from(`resultados${juego}`).insert(insertData);
+
+      if (insertError) {
+        console.error("Error al insertar nuevo resultado:", insertError);
+      }
+    }
+  }
+
 }
