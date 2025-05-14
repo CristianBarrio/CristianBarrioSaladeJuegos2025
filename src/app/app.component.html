@@ -4,8 +4,8 @@
   <a href="resultados">Resultados</a>
   <a href="chat">Sala de Chat</a>
   <a href="quiensoy">Quién Soy</a>
-  <a href="/login" *ngIf="!mostrarNombre">Iniciar Sesión</a>
-  <a href="/registro" *ngIf="!mostrarNombre">Crear Cuenta</a>
+  <a href="login" *ngIf="!auth.getUsuarioActual() === null">Iniciar Sesión</a>
+  <a href="registro" *ngIf="!auth.getUsuarioActual() === null">Crear Cuenta</a>
 
   <label *ngIf="mostrarNombre">Bienvenido/a, {{ nombreUsuario }}</label>
   <button *ngIf="mostrarNombre" (click)="cerrarSesion()">
