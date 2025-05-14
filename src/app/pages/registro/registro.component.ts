@@ -2,16 +2,13 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
-//import { LoginComponent } from '../login/login.component';
 
 
 @Component({
   selector: 'app-registro',
   imports: [CommonModule,
-    ReactiveFormsModule,
-    ToastModule
+    ReactiveFormsModule
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'

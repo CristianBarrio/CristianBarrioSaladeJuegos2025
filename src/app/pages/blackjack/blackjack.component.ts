@@ -55,7 +55,6 @@ export class BlackjackComponent {
   }
 
   iniciarJuego() {
-    //this.mensaje = '';
     this.juegoTerminado = false;
     this.cartasJugador = [];
     this.cartasDealer = [];
@@ -156,28 +155,59 @@ export class BlackjackComponent {
     this.juegoTerminado = true;
   
     if (jugador > 21 || (jugador < dealer && dealer <= 21)) {
+      this.supabase.guardarResultado('Blackjack', this.auth.usuarioActual?.id, 'derrotas', 1);
+
       Swal.fire({
       icon:'error',
-      text: "¡Perdiste!"
-     });
-
-     this.supabase.guardarResultado('Blackjack', this.auth.usuarioActual?.id, 'derrotas', 1);
+      title: "¡Perdiste!",
+      html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+        didOpen: () => {
+        const btn = document.getElementById('btnReinicio');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              this.iniciarJuego();
+              Swal.close();
+            });
+          }  
+        }
+      });
 
     } else if (dealer > 21 || jugador > dealer) {
-      Swal.fire({
-      icon:'success',
-      text: "¡Ganaste!"
-     });
-
      this.supabase.guardarResultado('Blackjack', this.auth.usuarioActual?.id, 'victorias', 1);
      
-    }else {
-      Swal.fire({
-      icon: 'info',
-      text: "¡Empate!"
-     });
+     Swal.fire({
+      icon:'success',
+      title: "¡Ganaste!",
+      html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+        didOpen: () => {
+        const btn = document.getElementById('btnReinicio');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              this.iniciarJuego();
+              Swal.close();
+            });
+          }  
+        }
+      });
 
-     this.supabase.guardarResultado('Blackjack', this.auth.usuarioActual?.id, 'empates', 1);
+    }else {
+      this.supabase.guardarResultado('Blackjack', this.auth.usuarioActual?.id, 'empates', 1);
+      
+      Swal.fire({
+      icon:'info',
+      title: "¡Empate!",
+      html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+        didOpen: () => {
+        const btn = document.getElementById('btnReinicio');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              this.iniciarJuego();
+              Swal.close();
+            });
+          }  
+        }
+      });
+
     }
   }
 

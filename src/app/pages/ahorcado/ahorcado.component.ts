@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ahorcado',
@@ -63,6 +64,21 @@ export class AhorcadoComponent {
             clearInterval(this.intervalo);
           }
           this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'aciertos', 1);
+
+          Swal.fire({
+          icon:'success',
+          title: "¡Ganaste!",
+          html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+            didOpen: () => {
+            const btn = document.getElementById('btnReinicio');
+              if (btn) {
+                btn.addEventListener('click', () => {
+                  this.reiniciarJuego();
+                  Swal.close();
+                });
+              }  
+            }
+          });
         }
       }else{
         this.errores++;
@@ -74,6 +90,21 @@ export class AhorcadoComponent {
           }
           this.palabraOculta = this.palabraSeleccionada;
           this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'errores', 1);
+
+          Swal.fire({
+          icon:'error',
+          title: "¡Perdiste!",
+          html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+            didOpen: () => {
+            const btn = document.getElementById('btnReinicio');
+              if (btn) {
+                btn.addEventListener('click', () => {
+                  this.reiniciarJuego();
+                  Swal.close();
+                });
+              }  
+            }
+          });
         }
     }
   }
@@ -86,6 +117,21 @@ export class AhorcadoComponent {
       if (this.tiempoRestante === 0) {
         clearInterval(this.intervalo);
         this.supabase.guardarResultado('Ahorcado', this.auth.getUsuarioActual()?.id, 'tiempoCero', 1);
+
+        Swal.fire({
+          icon:'error',
+          title: "¡Se acabó el tiempo!",
+          html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+            didOpen: () => {
+            const btn = document.getElementById('btnReinicio');
+              if (btn) {
+                btn.addEventListener('click', () => {
+                  this.reiniciarJuego();
+                  Swal.close();
+                });
+              }  
+            }
+          });
       }
     }, 1000);
   }

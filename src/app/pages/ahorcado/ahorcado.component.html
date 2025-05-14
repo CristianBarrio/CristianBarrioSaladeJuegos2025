@@ -26,8 +26,6 @@
         <div>
           <h2 *ngIf="errores === 6" style="color:red;">Errores: {{ errores + "/6" }}</h2>
           <h2 *ngIf="errores < 6">Errores: {{ errores + "/6" }}</h2>
-          <h2 *ngIf="juegoTerminado && errores < 6" style="color:green;">¡Ganaste!</h2>
-          <h2 *ngIf="errores === 6" style="color:red;">¡Perdiste!</h2>
         </div>
         
       </div>

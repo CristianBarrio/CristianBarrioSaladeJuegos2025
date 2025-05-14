@@ -24,12 +24,6 @@ export class LoginComponent {
     password: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(20)])
   })
 
-  // ngOnInit(){
-  //   this.auth.alCerrarSesion.subscribe(() => {
-  //     this.form.reset();
-  //   });
-  // }
-
   async login() {
     if (this.form.valid) {
       try {

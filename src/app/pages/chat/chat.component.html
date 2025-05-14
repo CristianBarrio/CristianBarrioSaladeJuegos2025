@@ -1,26 +1,19 @@
-<!-- @for (m of mensajes(); track m.id) {
-    <p>{{ m.usuarios?.nombre + " - " + (m.created_at | date:'dd-MM-yyyy HH:mm') }}</p>
-    <p *ngIf="m.usuarios?.id == this.usuarioActual?.id" style="color:blue">{{ m.mensaje }}</p>
-    <p *ngIf="m.usuarios?.id != this.usuarioActual?.id">{{ m.mensaje }}</p>
-    }
-    <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje"/> <button (click)="enviar()">Enviar</button> -->
-
-    <div class="chat">
-    <div class="chat-box">
+<div class="chat">
+    <div class="chat2">
         <div class="mensajes">
         @for (m of mensajes(); track m.id) {
             <div class="mensaje" [ngClass]="{
                 'propio': m.usuarios?.id == this.usuarioActual?.id,
                 'ajeno': m.usuarios?.id != this.usuarioActual?.id
             }">
-            <p class="meta">{{ m.usuarios?.nombre }} - {{ m.created_at | date:'dd-MM-yyyy HH:mm' }}</p>
-            <p class="text">{{ m.mensaje }}</p>
+            <p class="datos">{{ m.usuarios?.nombre }} - {{ m.created_at | date:'dd-MM-yyyy HH:mm' }}</p>
+            <p class="texto">{{ m.mensaje }}</p>
             </div>
         }
     </div>
 
-    <div class="input-box">
-      <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje"/>
+    <div class="input">
+      <input [(ngModel)]="mensaje" placeholder="Escribí un mensaje" (keyup.enter)="enviar()"/>
       <button (click)="enviar()">Enviar</button>
     </div>
   </div>

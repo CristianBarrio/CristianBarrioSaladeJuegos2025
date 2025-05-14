@@ -22,7 +22,6 @@
       <div class="juego2">
         <div class="botones">
           <button [disabled]="jugadorEstaPlantado || juegoTerminado" (click)="pedirCarta()">PEDIR CARTA</button>
-          <!-- <button [disabled]="(sumaCartasJugador < 17 || juegoTerminado) || jugadorEstaPlantado" (click)="plantarse()">PLANTARSE</button> -->
            <button [disabled]="jugadorEstaPlantado" (click)="plantarse()">PLANTARSE</button>
           <button (click)="iniciarJuego()">JUGAR DE NUEVO</button>
         </div>

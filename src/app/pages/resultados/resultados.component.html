@@ -1,25 +1,28 @@
 <div *ngFor="let juego of juegos">
-  <h2>{{ juego }}</h2>
-  <table *ngIf="resultados[juego] && resultados[juego].length > 0" class="bordered-table">
+  <h2>
+  <img *ngIf="nombresJuegos[juego]?.icono" [src]="nombresJuegos[juego].icono" class="titulos">
+  {{ nombresJuegos[juego]?.titulo }}
+  </h2>
+  <table *ngIf="resultados[juego] && resultados[juego].length > 0" class="tabla">
     <thead>
       <tr>
-        <th>ID</th>
-        <th *ngFor="let key of getColumnKeys(resultados[juego][0])" [innerText]="key"></th>
-        <th>Usuario</th>
+        <th class="ids">ID del Usuario</th>
+        <th class="usuarios">Usuario</th>
+        <th *ngFor="let col of columnas[juego]" [innerText]="col.nombre" class="resultados"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let resultado of resultados[juego]">
-        <td>{{ resultado.id }}</td>
-        <td *ngFor="let key of getColumnKeys(resultado)">
-          {{ resultado[key] }}
-        </td>
-        <td>
+        <td class="ids">{{ resultado.usuarios?.id }}</td>
+        <td class="usuarios">
           {{ resultado.usuarios?.nombre }} ({{ resultado.usuarios?.email }})
+        </td>
+        <td *ngFor="let col of columnas[juego]" [ngStyle]="{'background-color': col.color}" class="resultados">
+          {{ resultado[col.columna] ?? '-' }}
         </td>
       </tr>
     </tbody>
-  </table>
+  </table><br>
   <p *ngIf="!resultados[juego]?.length">No hay resultados.</p>
 </div>
 

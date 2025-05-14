@@ -8,8 +8,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<!-- <link rel="stylesheet" href="css/style.css"> -->
 
 	</head>
 	<body>
@@ -40,8 +38,6 @@
 							<form action="#" class="signin-form" [formGroup]="form">
 			      		<div class="form-group mb-3">
 			      			<label class="label" for="email">Correo</label> 
-							<!-- for=name -->
-			      			<!-- <input type="text" class="form-control" placeholder="Ingrese su correo" required> -->
 							<input type="email" id="email" name="email" formControlName="email" placeholder="Ingrese su correo" required>
 
 							<div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
@@ -51,8 +47,6 @@
 			      		</div>
 
 		            <div class="form-group mb-3">
-		              <!-- <label class="label" for="password">Contraseña</label>
-		              <input type="password" class="form-control" placeholder="Ingrese su clave" required> -->
 					  <label class="label" for="password">Contraseña</label>
 					  <input type="password" id="password" name="password" formControlName="password" placeholder="Ingrese su clave" required>
 
@@ -64,7 +58,6 @@
 
 		            </div>
 		            <div class="form-group">
-		            	<!-- <button type="submit" class="form-control btn btn-primary submit px-3">Ingresar</button> -->
 						<button type="submit" class="form-control btn btn-primary submit px-3" [disabled]="form.invalid" (click)="login()">Ingresar</button>
 
 						<div class="user-button-group">
@@ -73,17 +66,6 @@
 							<button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[2])">USUARIO</button>
 						  </div>
 		            </div>
-		            <!-- <div class="form-group d-md-flex">
-		            	<div class="w-50 text-left">
-			            	<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-									  <input type="checkbox" checked>
-									  <span class="checkmark"></span>
-										</label>
-									</div>
-									<div class="w-50 text-md-right">
-										<a href="#">Forgot Password</a>
-									</div>
-		            </div> -->
 		          </form>
 		        </div>
 		      </div>
@@ -99,43 +81,4 @@
 
 	</body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ingresar</title>
-</head>
-<body>
-
-	<p-toast></p-toast>
-
-	<form [formGroup]="form">
-		<label for="email">Correo:</label>
-		<input type="email" id="email" name="email" formControlName="email" required><br><br>
-	  
-		<div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
-		  <div *ngIf="form.controls.email.errors?.['required']">Este campo es obligatorio</div>
-		  <div *ngIf="form.controls.email.errors?.['email']">Correo no válido</div>
-		</div>
-	  
-		<label for="password">Contraseña:</label>
-		<input type="password" id="password" name="password" formControlName="password" required><br><br>
-	  
-		<div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
-		  <div *ngIf="form.controls.password.errors?.['required']">Este campo es obligatorio</div>
-		</div>
-	  
-		<button type="submit" [disabled]="form.invalid" (click)="login()">Ingresar</button>
-	  
-		<div>
-		  <button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[0])">ADMIN</button>
-		  <button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[1])">INVITADO</button>
-		  <button class="user-button" (click)="autocompletarUsuario(usuariosRegistrados[2])">USUARIO</button>
-		</div>
-	  </form>
-	
-</body>
-</html> -->
 

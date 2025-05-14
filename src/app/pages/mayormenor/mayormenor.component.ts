@@ -64,16 +64,36 @@ export class MayormenorComponent {
     if(esMayor === this.resultado){
       this.supabase.guardarResultado('MayorMenor', this.usuarioActual?.id, 'aciertos', 1);
       Swal.fire({
-        icon: 'success',
-        title: '¡Ganaste!'
+      icon:'success',
+      title: "¡Ganaste!",
+      html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+        didOpen: () => {
+        const btn = document.getElementById('btnReinicio');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              this.generarCartas();
+              Swal.close();
+            });
+          }  
+        }
       });
       console.log('Ganaste!');
 
     }else{
       this.supabase.guardarResultado('MayorMenor', this.usuarioActual?.id, 'errores', 1);
       Swal.fire({
-        icon: 'error',
-        title: '¡Perdiste!'
+      icon:'error',
+      title: "¡Perdiste!",
+      html: `<button id="btnReinicio" class="swal2-confirm swal2-styled">Jugar de nuevo</button>`,
+        didOpen: () => {
+        const btn = document.getElementById('btnReinicio');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              this.generarCartas();
+              Swal.close();
+            });
+          }  
+        }
       });
       console.log('Perdiste!');
     }
