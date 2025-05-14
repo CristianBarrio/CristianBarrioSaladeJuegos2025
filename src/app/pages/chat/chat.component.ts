@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,7 @@ import { CommonModule, DatePipe } from '@angular/common';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit{
   supabaseService = inject(SupabaseService);
   auth = inject(AuthService);
   
@@ -48,7 +48,6 @@ export class ChatComponent {
     }
 
    enviar(){
-    //const idUsuario = this.auth.getUsuarioActual()?.id;
     this.supabaseService.guardarMensaje(this.mensaje, this.usuarioActual?.id);
 
     this.mensaje = "";

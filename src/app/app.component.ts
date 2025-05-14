@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'tpsaladejuegos';
   auth = inject(AuthService);
   router = inject(Router);
@@ -17,14 +17,19 @@ export class AppComponent {
   mostrarNombre = false;
   nombreUsuario: string | undefined = '';
 
-  async ngOnInit() {
-    this.nombreUsuario = this.auth.getUsuarioActual()?.nombre;
-
-    if (this.nombreUsuario != '') {
+  ngOnInit() {
+    const usuario = this.auth.getUsuarioActual();
+    if (usuario) {
+      this.nombreUsuario = usuario.nombre;
       this.mostrarNombre = true;
     } else {
       this.mostrarNombre = false;
     }
+  }
+
+    cerrarSesion() {
+    this.auth.cerrarSesion();
+    this.mostrarNombre = false;
   }
 
 }

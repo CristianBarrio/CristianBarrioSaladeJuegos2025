@@ -10,25 +10,12 @@ export class AuthService {
   sb = inject(SupabaseService);
   router = inject(Router);
 
-  //usuarioActual:User | null = null;
   usuarioActual: Usuario | null = null;
-
-  //alCerrarSesion: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { 
     this.sb.supabase.auth.onAuthStateChange((event, session) =>{
-      //console.log("Event: "+event, "session: "+session);
-
       this.manejarCambioDeSesion(session);
-      
-      // if(session === null){
-      //   this.usuarioActual = null;
-      // }else{
-      //   //this.usuarioActual = session.user;
-      // }
     });
-
-    //this.tablaUsuarios = this.sb.supabase.from("usuarios");
   }
 
   async iniciarSesion(correo: string, contraseña: string) {
@@ -82,26 +69,6 @@ export class AuthService {
     }
   
     return null;
-  }
-  
-  
-  async recuperarUsuarioActual() {
-    const {
-      data: { session },
-    } = await this.sb.supabase.auth.getSession(); 
-  
-    if (session) {
-      const correo = session.user.email;
-      const { data: usuario, error } = await this.sb.supabase
-        .from("usuarios")
-        .select("*")
-        .eq("email", correo)
-        .single();
-  
-      if (!error) {
-        this.usuarioActual = usuario;
-      }
-    }
   }
 
   async crearCuenta(correo: string, contraseña: string, nombre: string, apellido: string, edad: number) {

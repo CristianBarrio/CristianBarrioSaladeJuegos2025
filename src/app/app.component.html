@@ -4,12 +4,12 @@
   <a href="resultados">Resultados</a>
   <a href="chat">Sala de Chat</a>
   <a href="quiensoy">Quién Soy</a>
-  <a href="login" *ngIf="!mostrarNombre">Iniciar Sesión</a>
-  <a href="registro" *ngIf="!mostrarNombre">Crear Cuenta</a>
+  <a href="/login" *ngIf="!mostrarNombre">Iniciar Sesión</a>
+  <a href="/registro" *ngIf="!mostrarNombre">Crear Cuenta</a>
 
-  <label *ngIf="mostrarNombre">Bienvenido/a, {{ this.nombreUsuario }}</label>
-  <button [disabled]="!mostrarNombre" (click)="this.auth.cerrarSesion()">
-    <img src="logout.png" alt="cerrar sesión"/>
+  <label *ngIf="mostrarNombre">Bienvenido/a, {{ nombreUsuario }}</label>
+  <button *ngIf="mostrarNombre" (click)="cerrarSesion()">
+    <img src="logout.png" alt="cerrar sesión" title="Cerrar Sesión"/>
   </button>
 </nav>
 

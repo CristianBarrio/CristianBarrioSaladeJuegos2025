@@ -5,11 +5,11 @@
     </div>
 
     <div class="botones">
-        <button (click)="this.router.navigateByUrl('login')">
+        <button (click)="this.router.navigateByUrl('login')" [disabled]="auth.getUsuarioActual() === null">
             <img src="login.png">
             INICIAR SESIÓN
         </button>
-        <button (click)="this.router.navigateByUrl('registro')">
+        <button (click)="this.router.navigateByUrl('registro')" [disabled]="auth.getUsuarioActual() === null">
             <img src="registro.png">
             CREAR CUENTA
         </button>
